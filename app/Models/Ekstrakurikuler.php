@@ -9,7 +9,7 @@ class Ekstrakurikuler extends Model
 {
     use HasFactory;
 
-    protected $table ="ekstrakurikuler";
+    protected $table ="ekstrakurikulers";
     protected $fillable = [
         "name",
         "pembina",
