@@ -1,75 +1,81 @@
-@extends('layouts.app')
+@extends('layouts.app')  
+  
+@section('title', 'Edit Ekstra')  
+  
+@section('content')  
+<div class="d-sm-flex align-items-center justify-content-between mb-4">  
+    <h1 class="h3 mb-0 text-gray-800">From Edit Ekstrakurikuler</h1>  
+</div>  
+  
+<div class="row">  
+    <div class="col-lg-12">  
+        <div class="card shadow mb-4">  
 
-@section('title', 'Edit Ekstra')
+            <div class="card-header d-flex justify-content-between align-items-center">  
+                <h5 class="card-title mb-0">Form Edit Ekstrakurikuler</h5>
 
-@section('content')
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">From Edit Ekstrakurikuler</h1>
-</div>
-
-<div class="row">
-    <div class="col-lg-8">
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex align-items-center justify-content-between">
-           
-            </div>
-
-            <div class="card-body">
-                <form action="{{ route('admin.ekstra.update', encrypt($ekstra->id)) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-
-                    <div class="form-group mb-3">
-                        <label for="name">Nama Ekstra<span class="text-danger">*</span></label>
-                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $ekstra->name) }}" required>
-
-                        @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="pembina">Pembina<span class="text-danger">*</span></label>
-                        <input type="text" name="pembina" id="pembina" class="form-control @error('pembina') is-invalid @enderror" value="{{ old('pembina', $ekstra->pembina) }}" required>
-
-                        @error('pembina')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="jadwal">Jadwal<span class="text-danger">*</span></label>
-                        <input type="text" name="jadwal" id="jadwal" class="form-control @error('jadwal') is-invalid @enderror" value="{{ old('jadwal', $ekstra->jadwal) }}" required>
-
-                        @error('jadwal')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="deskripsi">Deskripsi<span class="text-danger">*</span></label>
-                        <input type="text" name="deskripsi" id="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" value="{{ old('deskripsi', $ekstra->deskripsi) }}" required>
-
-                        @error('deskripsi')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
-
-                    <div class="d-flex justify-content-end">
-                        <a href="{{ route('admin.ekstra.index') }}" class="btn btn-secondary mr-2">Batal</a>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fa fa-save mr-1"></i> Update Data
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+                <a href="{{ route('admin.ekstra.index') }}" class="btn btn-secondary btn-sm"> 
+                    <i class="fa fa-arrow-left mr-1"></i>
+                    Kembali
+                </a>
+            </div>  
+  
+            <div class="card-body">  
+                <form action="{{ route('admin.ekstra.update', ($ekstra->id)) }}" method="POST">  
+                    @csrf  
+                    @method('PUT')  
+  
+                    <div class="form-group mb-3">  
+                        <label for="name">Nama Ekstra<span class="text-danger">*</span></label>  
+                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $ekstra->name) }}" required>  
+  
+                        @error('name')  
+                            <div class="invalid-feedback">  
+                                {{ $message }}  
+                            </div>  
+                        @enderror  
+                    </div>  
+  
+                    <div class="form-group mb-3">  
+                        <label for="pembina">Pembina<span class="text-danger">*</span></label>  
+                        <input type="text" name="pembina" id="pembina" class="form-control @error('pembina') is-invalid @enderror" value="{{ old('pembina', $ekstra->pembina) }}" required>  
+  
+                        @error('pembina')  
+                            <div class="invalid-feedback">  
+                                {{ $message }}  
+                            </div>  
+                        @enderror  
+                    </div>  
+  
+                    <div class="form-group mb-3">  
+                        <label for="jadwal">Jadwal<span class="text-danger">*</span></label>  
+                        <input type="text" name="jadwal" id="jadwal" class="form-control @error('jadwal') is-invalid @enderror" value="{{ old('jadwal', $ekstra->jadwal) }}" required>  
+  
+                        @error('jadwal')  
+                            <div class="invalid-feedback">{{ $message }}</div>  
+                        @enderror  
+                    </div>  
+  
+                    <div class="form-group mb-4">  
+                        <label for="deskripsi">Deskripsi<span class="text-danger">*</span></label>  
+                         
+                        <textarea name="deskripsi" id="deskripsi" rows="7" class="form-control @error('deskripsi') is-invalid @enderror" style="width: 100%; min-height: 180px;" required>{{ old('deskripsi', $ekstra->deskripsi) }}</textarea> 
+  
+                        @error('deskripsi')  
+                            <div class="invalid-feedback">  
+                                {{ $message }}  
+                            </div>  
+                        @enderror  
+                    </div>  
+  
+                    <div class="d-flex justify-content-end">  
+                        <button type="submit" class="btn btn-primary">  
+                            <i class="fa fa-save mr-1"></i> Update Data  
+                        </button>  
+                    </div>  
+                </form>  
+            </div>  
+        </div>  
+    </div>  
+</div>  
 @endsection

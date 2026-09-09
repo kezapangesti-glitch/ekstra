@@ -70,14 +70,14 @@ Route::group([
     // Dashboard Admin
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
 
-    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])
-        ->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
 
     // Admin
     Route::resource('/admin', App\Http\Controllers\AdminController::class);
 
     // Pendaftaran
     Route::get('/pendaftaran', [App\Http\Controllers\PendaftaranController::class, 'index'])->name('pendaftaran.index');
+    Route::get('/pendaftaran/{id}', [App\Http\Controllers\PendaftaranController::class, 'show'])->name('pendaftaran.show');
 
     // Ekstrakurikuler
     Route::resource('/ekstra', App\Http\Controllers\EkstraController::class);

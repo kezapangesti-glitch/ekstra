@@ -11,7 +11,6 @@
     <div class="col-lg-8">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Informasi Employee</h6>
                 <a href="{{ route('admin.ekstra.index') }}" class="btn btn-sm btn-secondary">
                     <i class="fa fa-arrow-left mr-1"></i> Kembali
                 </a>

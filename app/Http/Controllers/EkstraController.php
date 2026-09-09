@@ -90,9 +90,7 @@ class EkstraController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        return redirect()
-            ->route('admin.ekstra.index')
-            ->with('success', 'Berhasil Memperbarui data ekstra');
+        return redirect()->route('admin.ekstra.index')->with('success', 'Berhasil Memperbarui data ekstra');
     }
 
     /**
@@ -101,11 +99,7 @@ class EkstraController extends Controller
     public function destroy(string $id)
     {
         $ekstra = Ekstrakurikuler::findOrFail($id);
-
         $ekstra->delete();
-
-        return redirect()
-            ->route('admin.ekstra.index')
-            ->with('success', 'Berhasil menghapus data ekstra');
+        return redirect()->route('admin.ekstra.index')->with('success', 'Berhasil menghapus data ekstra');
     }
 }

@@ -8,7 +8,7 @@
         <!-- Tombol Kembali ke Dashboard -->
         <div class="mb-3">
             <a href="{{ route('siswa.index') }}" class="btn btn-link text-decoration-none p-0 text-secondary">
-                <i class="fas fa-arrow-left mr-1"></i> Kembali ke Dashboard
+                <i class="fas fa-arrow-left mr-1"></i> Kembali
             </a>
         </div>
         <div class="row justify-content-center">

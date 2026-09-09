@@ -30,22 +30,22 @@ class SiswaController extends Controller
             'name' => 'required',
             'telp' => 'required',
             'kelas' => 'required',
-            'ekskul_id' => 'required',
-            'alasan' => 'required',
+            'eskul_id' => 'required',
+            'alasan_mengikuti' => 'required',
         ]);
 
-        $siswa = Siswa::updateOrCreate(
-            ['user_id' => Auth()->id()],
-            [
-                'name' => $request->name,
-                'telp' => $request->telp,
-                'kelas' => $request->kelas,
-            ]
+       $siswa = Siswa::updateOrCreate(
+        ['user_id' => Auth()->id()],
+        [
+        'name' => $request->name,
+        'telp' => $request->telp,
+        'kelas' => $request->kelas,
+        ]
         );
         Pendaftaran::create([
             'siswa_id'         => $siswa->id,
-            'ekskul_id'        => $request->ekskul_id,
-            'alasan_mengikuti' => $request->alasan,
+            'eskul_id'        => $request->eskul_id,
+            'alasan_mengikuti' => $request->alasan_mengikuti,
         ]);
 
         return redirect()->route('siswa.index')->with('success','Pendaftaran Berhasil! Terimakasih telah mendaftar ekstrakurikuler.');
