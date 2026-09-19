@@ -52,19 +52,17 @@
                         @enderror 
                     </div> 
 
-                    {{-- JADWAL --}} 
-                    <div class="form-group mb-3"> 
-                        <label for="jadwal" class="form-label"> 
-                            Jadwal 
-                        </label> 
-                        <input type="text" name="jadwal" id="jadwal" value="{{ old('jadwal') }}" class="form-control @error('jadwal') is-invalid @enderror"> 
-
-                        @error('jadwal') 
-                            <div class="invalid-feedback d-block"> 
-                                <span>{{ $message }}</span> 
-                            </div> 
-                        @enderror 
-                    </div> 
+                    {{-- JADWAL --}}
+                    <div class="form-group mb-3">
+                        <label for="jadwal" class="form-label">Jadwal</label>
+                        <input type="text" name="jadwal" id="jadwal" placeholder="Contoh: Jumat, 15.00 - 17.00" value="{{ old('jadwal') }}" class="form-control @error('jadwal') is-invalid @enderror">
+                        
+                        @error('jadwal')
+                            <div class="invalid-feedback d-block">
+                                <span>{{ $message }}</span>
+                            </div>
+                        @enderror
+                    </div>
 
                     {{-- DESKRIPSI --}} 
                     <div class="form-group mb-4"> 

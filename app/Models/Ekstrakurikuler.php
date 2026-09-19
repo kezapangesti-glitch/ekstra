@@ -16,8 +16,13 @@ class Ekstrakurikuler extends Model
         "jadwal",
         "deskripsi",
     ];
+    public function siswas()
+    {
+        return $this->hasMany(Siswa::class, 'ekstrakurikuler_id');
+    }
+
     public function pendaftaran()
     {
-        return $this->hasMany(Pendaftaran::class, "eskul_id");
+        return $this->hasMany(Pendaftaran::class, 'ekstrakurikuler_id');
     }
 }

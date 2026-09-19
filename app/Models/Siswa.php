@@ -2,23 +2,28 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Ekstrakurikuler;
 
 class Siswa extends Model
 {
-    use HasFactory;
+    protected $table = 'siswas';
 
-    protected $table ="siswas";
     protected $fillable = [
-        "user_id",
-        "name",
-        "telp",
-        "kelas",
+        'user_id',
+        'name',
+        'telp',
+        'kelas',
+        'ekstrakurikuler_id',
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, "user_id");
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function ekstrakurikuler()
+    {
+        return $this->belongsTo(Ekstrakurikuler::class, 'ekstrakurikuler_id');
     }
 }
