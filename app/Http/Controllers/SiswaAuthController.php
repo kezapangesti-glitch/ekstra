@@ -21,7 +21,12 @@ class SiswaAuthController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt([
+            'email' => $credentials['email'],
+            'password' => $credentials['password'],
+            'role' => 'siswa',
+        ])) {
+
             $request->session()->regenerate();
 
             return redirect()->route('siswa.index');
@@ -29,7 +34,7 @@ class SiswaAuthController extends Controller
 
         return back()
             ->withErrors([
-                'email' => 'Email atau password salah.',
+                'email' => 'Email atau password salah, atau akun bukan akun siswa.',
             ])
             ->withInput();
     }
@@ -47,15 +52,16 @@ class SiswaAuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'siswa',
         ]);
 
         return redirect()
             ->route('login.siswa')
-            ->with('success', 'Registrasi berhasil. Selamat datang!');
+            ->with('success', 'Registrasi berhasil. Silakan login sebagai siswa.');
     }
 
     public function logout(Request $request)
