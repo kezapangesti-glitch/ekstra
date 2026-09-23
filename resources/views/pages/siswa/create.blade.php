@@ -112,3 +112,23 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (session('error'))
+
+        <script>
+            Swal.fire({
+                title: 'Pendaftaran Gagal',
+                text: @json(session('error')),
+                icon: 'warning',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4e73df'
+            });
+        </script>
+
+    @endif
+
+@endpush
