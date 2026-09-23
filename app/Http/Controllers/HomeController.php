@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Ekstrakurikuler;
 use App\Models\Siswa;
-use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -13,32 +12,17 @@ class HomeController extends Controller
         // Total ekstrakurikuler
         $totalEkstra = Ekstrakurikuler::count();
 
-        // Total siswa / pendaftar
+        // Total siswa yang terdaftar
         $totalPendaftar = Siswa::count();
 
-        // Pendaftar hari ini
-        $pendaftarHariIni = Siswa::whereDate(
-            'created_at',
-            Carbon::today()
-        )->count();
-
-        // Statistik pendaftar per bulan
-        $statistikPendaftar = [];
-
-        for ($bulan = 1; $bulan <= 12; $bulan++) {
-            $statistikPendaftar[] = Siswa::whereYear(
-                'created_at',
-                Carbon::now()->year
-            )
-            ->whereMonth('created_at', $bulan)
-            ->count();
-        }
+        // Ringkasan pendaftaran berdasarkan ekstrakurikuler
+        $ringkasanPendaftaran = Ekstrakurikuler::withCount('pendaftarans')
+            ->get();
 
         return view('home', compact(
             'totalEkstra',
             'totalPendaftar',
-            'pendaftarHariIni',
-            'statistikPendaftar'
+            'ringkasanPendaftaran'
         ));
     }
 }

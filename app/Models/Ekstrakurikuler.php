@@ -9,20 +9,28 @@ class Ekstrakurikuler extends Model
 {
     use HasFactory;
 
-    protected $table ="ekstrakurikulers";
+    protected $table = "ekstrakurikulers";
+
     protected $fillable = [
         "name",
         "pembina",
         "jadwal",
         "deskripsi",
     ];
-    public function siswas()
+
+    public function pendaftarans()
     {
-        return $this->hasMany(Siswa::class, 'ekstrakurikuler_id');
+        return $this->hasMany(
+            Pendaftaran::class,
+            'eskul_id'
+        );
     }
 
-    public function pendaftaran()
+    public function siswas()
     {
-        return $this->hasMany(Pendaftaran::class, 'ekstrakurikuler_id');
+        return $this->hasMany(
+            Siswa::class,
+            'ekstrakurikuler_id'
+        );
     }
 }
