@@ -26,10 +26,9 @@ class SiswaAuthController extends Controller
             'password' => $credentials['password'],
             'role' => 'siswa',
         ])) {
-
             $request->session()->regenerate();
 
-            return redirect()->route('siswa.index');
+            return redirect()->intended(route('publik.ekstra.index'));
         }
 
         return back()

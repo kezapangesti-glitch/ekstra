@@ -40,8 +40,7 @@
                             </p>
                         </div>
 
-                        <a href="{{ route('siswa.create', ['ekstra_id' => $ekstra->id]) }}"
-                            class="btn btn-primary btn-block font-weight-bold py-2 shadow-sm">
+                        <a href="{{ route('siswa.create') }}" class="btn btn-primary">
                             Daftar Sekarang
                         </a>
 

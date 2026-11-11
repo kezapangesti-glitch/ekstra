@@ -7,9 +7,23 @@ use Illuminate\Http\Request;
 
 class EkstraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // HALAMAN PUBLIK SISWA
+    public function publicIndex()
+    {
+        $ekstras = Ekstrakurikuler::all();
+
+        return view('pages.ekstra.public-index', compact('ekstras'));
+    }
+
+    // DETAIL EKSTRA UNTUK SISWA
+    public function publicShow($id)
+    {
+        $ekstra = Ekstrakurikuler::findOrFail($id);
+
+        return view('pages.ekstra.public-show', compact('ekstra'));
+    }
+
+    // HALAMAN ADMIN
     public function index()
     {
         $ekstras = Ekstrakurikuler::all();
@@ -17,17 +31,13 @@ class EkstraController extends Controller
         return view('pages.ekstra.index', compact('ekstras'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // FORM TAMBAH EKSTRA
     public function create()
     {
         return view('pages.ekstra.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // SIMPAN DATA EKSTRA
     public function store(Request $request)
     {
         $request->validate([
@@ -46,12 +56,10 @@ class EkstraController extends Controller
 
         return redirect()
             ->route('admin.ekstra.index')
-            ->with('success', 'Berhasil Menambahkan Data ekstra');
+            ->with('success', 'Berhasil menambahkan data ekstra');
     }
 
-    /**
-     * Display the specified resource.
-     */
+    // DETAIL EKSTRA ADMIN
     public function show(string $id)
     {
         $ekstra = Ekstrakurikuler::findOrFail($id);
@@ -59,9 +67,7 @@ class EkstraController extends Controller
         return view('pages.ekstra.show', compact('ekstra'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // FORM EDIT EKSTRA
     public function edit(string $id)
     {
         $ekstra = Ekstrakurikuler::findOrFail($id);
@@ -69,9 +75,7 @@ class EkstraController extends Controller
         return view('pages.ekstra.edit', compact('ekstra'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // UPDATE DATA EKSTRA
     public function update(Request $request, string $id)
     {
         $ekstra = Ekstrakurikuler::findOrFail($id);
@@ -90,16 +94,20 @@ class EkstraController extends Controller
             'deskripsi' => $request->deskripsi,
         ]);
 
-        return redirect()->route('admin.ekstra.index')->with('success', 'Berhasil Memperbarui data ekstra');
+        return redirect()
+            ->route('admin.ekstra.index')
+            ->with('success', 'Berhasil memperbarui data ekstra');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // HAPUS DATA EKSTRA
     public function destroy(string $id)
     {
         $ekstra = Ekstrakurikuler::findOrFail($id);
+
         $ekstra->delete();
-        return redirect()->route('admin.ekstra.index')->with('success', 'Berhasil menghapus data ekstra');
+
+        return redirect()
+            ->route('admin.ekstra.index')
+            ->with('success', 'Berhasil menghapus data ekstra');
     }
 }

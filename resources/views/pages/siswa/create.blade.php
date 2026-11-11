@@ -11,8 +11,8 @@
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex align-items-center justify-content-between">
                     <h5 class="m-0 font-weight-bold text-primary">Input Data Siswa</h5>
-                    <a href="{{ route('siswa.index') }}" class="btn btn-sm btn-secondary">
-                        <i class="fa fa-arrow-left"></i> Kembali
+                    <a href="{{ route('publik.ekstra.index') }}" class="btn btn-secondary">
+                        Kembali
                     </a>
                 </div>
 
@@ -23,7 +23,7 @@
                         {{-- NAMA SISWA --}}
                         <div class="form-group mb-3">
                             <label for="name" class="font-weight-bold">Nama Lengkap</label>
-                            <input type="text" name="name" id="name" class="form-control" value="{{ Auth::user()->name }}" readonly>
+                            <input type="text" name="name" id="name" class="form-control" value="{{ Auth::user()?->name ?? '' }}" readonly>
                         </div>
 
                         <!-- No. Telp -->
