@@ -6,6 +6,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Form Pendaftaran</h1>
     </div>
+
     <div class="row justify-content-center">
         <div class="col-lg-12">
             <div class="card shadow mb-4">
@@ -23,13 +24,16 @@
                         {{-- NAMA SISWA --}}
                         <div class="form-group mb-3">
                             <label for="name" class="font-weight-bold">Nama Lengkap</label>
-                            <input type="text" name="name" id="name" class="form-control" value="{{ Auth::user()?->name ?? '' }}" readonly>
+                            <input type="text" name="name" id="name" class="form-control"
+                                value="{{ Auth::user()?->name ?? '' }}" readonly>
                         </div>
 
-                        <!-- No. Telp -->
+                        {{-- NO TELP --}}
                         <div class="form-group mb-3">
-                            <label for="telp" class="font-weight-bold">No. Telp <span class="text-danger"></span></label>
-                            <input type="text" name="telp" id="telp" class="form-control @error('telp') is-invalid @enderror" value="{{ old('telp') }}" placeholder="Masukkan No Telp" required>
+                            <label for="telp" class="font-weight-bold">No. Telp</label>
+                            <input type="text" name="telp" id="telp"
+                                class="form-control @error('telp') is-invalid @enderror"
+                                value="{{ old('telp') }}" placeholder="Masukkan No Telp" required>
                             @error('telp')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -38,11 +42,12 @@
                         {{-- KELAS --}}
                         <div class="form-group mb-3">
                             <label for="kelas" class="font-weight-bold">Kelas <span class="text-danger">*</span></label>
-                            <select name="kelas" id="kelas" class="form-control @error('kelas') is-invalid @enderror"
-                                required>
+                            <select name="kelas" id="kelas"
+                                class="form-control @error('kelas') is-invalid @enderror" required>
                                 <option value="">-- Pilih Kelas --</option>
+
                                 {{-- Farmasi --}}
-                                <option value="X Farmasi" {{ old('kelas') == 'X Farmasi' ? 'selected' : ''}}>X Farmasi</option>
+                                <option value="X Farmasi" {{ old('kelas') == 'X Farmasi' ? 'selected' : '' }}>X Farmasi</option>
                                 <option value="XI FKK" {{ old('kelas') == 'XI FKK' ? 'selected' : '' }}>XI FKK</option>
 
                                 {{-- RPL --}}
@@ -73,22 +78,25 @@
                             </select>
 
                             @error('kelas')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        {{-- Ekstrakurikuler --}}
+                        {{-- EKSTRAKURIKULER --}}
                         <div class="form-group mb-3">
-                            <label for="eskul_id" class="font-weight-bold">Pilih Ekstrakurikuler <span class="text-danger"></span></label>
-                            <select name="eskul_id" id="eskul_id" class="form-control @error('eskul_id') is-invalid @enderror" required>
+                            <label for="eskul_id" class="font-weight-bold">Pilih Ekstrakurikuler</label>
+                            <select name="eskul_id" id="eskul_id"
+                                class="form-control @error('eskul_id') is-invalid @enderror" required>
                                 <option value="">-- Pilih Ekstrakurikuler --</option>
+
                                 @foreach ($ekstras as $ekstra)
-                                    <option value="{{ $ekstra->id }}" {{ old('eskul_id', $selectedEkstraId ?? '') == $ekstra->id ? 'selected' : '' }}> {{ $ekstra->name }}
+                                    <option value="{{ $ekstra->id }}"
+                                        {{ old('eskul_id', $selectedEkstraId ?? '') == $ekstra->id ? 'selected' : '' }}>
+                                        {{ $ekstra->name }}
                                     </option>
                                 @endforeach
                             </select>
+
                             @error('eskul_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -96,8 +104,11 @@
 
                         {{-- ALASAN --}}
                         <div class="form-group mb-4">
-                            <label for="alasan_mengikuti" class="font-weight-bold">Alasan Mengikuti <span class="text-danger"></span></label>
-                            <textarea name="alasan_mengikuti" id="alasan_mengikuti" rows="4" class="form-control @error('alasan_mengikuti') is-invalid @enderror" placeholder="Masukkan Alasan..." required>{{ old('alasan_mengikuti') }}</textarea>
+                            <label for="alasan_mengikuti" class="font-weight-bold">Alasan Mengikuti</label>
+                            <textarea name="alasan_mengikuti" id="alasan_mengikuti" rows="4"
+                                class="form-control @error('alasan_mengikuti') is-invalid @enderror"
+                                placeholder="Masukkan Alasan..." required>{{ old('alasan_mengikuti') }}</textarea>
+
                             @error('alasan_mengikuti')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -114,11 +125,9 @@
 @endsection
 
 @push('scripts')
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if (session('error'))
-
         <script>
             Swal.fire({
                 title: 'Pendaftaran Gagal',
@@ -128,7 +137,5 @@
                 confirmButtonColor: '#4e73df'
             });
         </script>
-
     @endif
-
 @endpush

@@ -4,18 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Ekstrakurikuler;
 use App\Models\Siswa;
+use App\Models\Pendaftaran;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
+    // Dashboard admin utama
     public function index()
     {
-        // Total ekstrakurikuler
         $totalEkstra = Ekstrakurikuler::count();
 
-        // Total siswa yang terdaftar
         $totalPendaftar = Siswa::count();
 
-        // Ringkasan pendaftaran berdasarkan ekstrakurikuler
         $ringkasanPendaftaran = Ekstrakurikuler::withCount('pendaftarans')
             ->get();
 
@@ -23,6 +23,26 @@ class HomeController extends Controller
             'totalEkstra',
             'totalPendaftar',
             'ringkasanPendaftaran'
+        ));
+    }
+
+    // Dashboard admin ekstrakurikuler
+    public function dashboardEkstra()
+    {
+        $idEkstra = Auth::user()->ekstrakurikuler_id;
+
+        $ekstra = Ekstrakurikuler::findOrFail($idEkstra);
+
+        $totalPendaftar = Pendaftaran::where('eskul_id', $idEkstra)->count();
+
+        $pendaftarans = Pendaftaran::with('siswa')
+            ->where('eskul_id', $idEkstra)
+            ->get();
+
+        return view('pages.admin_ekstra.dashboard', compact(
+            'ekstra',
+            'totalPendaftar',
+            'pendaftarans'
         ));
     }
 }

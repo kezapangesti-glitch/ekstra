@@ -9,9 +9,11 @@ use Illuminate\Support\Facades\Hash;
 
 class SiswaAuthController extends Controller
 {
-    public function showLogin()
+    public function showLogin(Request $request)
     {
-        return view('auth.siswa-login');
+        return view('auth.siswa-login', [
+            'ekstra_id' => $request->ekstra_id
+        ]);
     }
 
     public function login(Request $request)
@@ -27,6 +29,12 @@ class SiswaAuthController extends Controller
             'role' => 'siswa',
         ])) {
             $request->session()->regenerate();
+
+            if ($request->ekstra_id) {
+                return redirect()->route('siswa.create', [
+                    'ekstra_id' => $request->ekstra_id
+                ]);
+            }
 
             return redirect()->intended(route('publik.ekstra.index'));
         }

@@ -39,29 +39,26 @@ class SiswaController extends Controller
             'alasan_mengikuti' => 'required',
         ]);
 
-        // Cari data siswa berdasarkan akun yang sedang login
         $siswa = Siswa::where('user_id', Auth::id())->first();
 
-        // Cek apakah siswa sudah pernah mendaftar ekstrakurikuler yang sama
+        // Cek pendaftaran ganda
         if ($siswa) {
-
             $sudahTerdaftar = Pendaftaran::where('siswa_id', $siswa->id)
                 ->where('eskul_id', $request->eskul_id)
                 ->exists();
 
             if ($sudahTerdaftar) {
-
                 $ekstra = Ekstrakurikuler::find($request->eskul_id);
 
-                return back()->with('error','Kamu sudah terdaftar pada ekstrakurikuler ' . $ekstra->name . '.')->withInput();
+                return back()
+                    ->with('error', 'Kamu sudah terdaftar pada ekstrakurikuler ' . $ekstra->name . '.')
+                    ->withInput();
             }
         }
 
-        // Simpan atau perbarui data siswa
+        // Simpan data siswa
         $siswa = Siswa::updateOrCreate(
-            [
-                'user_id' => Auth::id()
-            ],
+            ['user_id' => Auth::id()],
             [
                 'name' => $request->name,
                 'telp' => $request->telp,
@@ -69,7 +66,7 @@ class SiswaController extends Controller
             ]
         );
 
-        // Simpan data pendaftaran
+        // Simpan pendaftaran
         Pendaftaran::create([
             'siswa_id' => $siswa->id,
             'eskul_id' => $request->eskul_id,
@@ -78,10 +75,7 @@ class SiswaController extends Controller
 
         return redirect()
             ->route('siswa.index')
-            ->with(
-                'success',
-                'Pendaftaran berhasil! Terima kasih telah mendaftar ekstrakurikuler.'
-            );
+            ->with('success', 'Pendaftaran berhasil! Terima kasih telah mendaftar ekstrakurikuler.');
     }
 
     public function show(string $id)
@@ -89,20 +83,5 @@ class SiswaController extends Controller
         $ekstra = Ekstrakurikuler::findOrFail($id);
 
         return view('pages.siswa.show', compact('ekstra'));
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
     }
 }

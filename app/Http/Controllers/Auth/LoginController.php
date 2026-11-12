@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
@@ -31,20 +30,37 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (Auth::attempt([
-            'email' => $credentials['email'],
-            'password' => $credentials['password'],
-            'role' => 'admin',
-        ])) {
-
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/admin/dashboard');
+            $user = Auth::user();
+
+            if ($user->role == 'admin') {
+                return redirect('/admin/dashboard');
+            }
+
+            if ($user->role == 'admin_ekstra') {
+                if (!$user->ekstrakurikuler_id) {
+                    Auth::logout();
+
+                    return back()->withErrors([
+                        'email' => 'Akun belum memiliki ekstrakurikuler.',
+                    ]);
+                }
+
+                return redirect('/admin-ekstra/dashboard');
+            }
+
+            Auth::logout();
+
+            return back()->withErrors([
+                'email' => 'Akun ini bukan akun admin.',
+            ]);
         }
 
         return back()
             ->withErrors([
-                'email' => 'Email atau password salah, atau akun bukan akun admin.',
+                'email' => 'Email atau password salah.',
             ])
             ->withInput($request->only('email'));
     }
