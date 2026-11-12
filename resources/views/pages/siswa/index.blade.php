@@ -14,32 +14,15 @@
             </p>
         </div>
 
-        {{-- PROFIL SISWA --}}
-        <div class="dropdown">
-            <a href="#"
-                role="button"
-                id="dropdownUser"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false">
-                <i class="fas fa-user-circle fa-2x text-primary"></i>
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-right shadow"
-                aria-labelledby="dropdownUser">
-
-                <form action="{{ route('siswa.logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="dropdown-item text-danger">
-                        <i class="fas fa-sign-out-alt mr-2"></i>
-                        Logout
-                    </button>
-                </form>
-
-            </div>
-        </div>
+        {{-- TOMBOL LOGOUT --}}
+        <form action="{{ route('siswa.logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-danger btn-sm">
+                <i class="fas fa-sign-out-alt mr-1"></i>
+                Logout
+            </button>
+        </form>
     </div>
-
 
     {{-- DAFTAR EKSTRAKURIKULER --}}
     <div class="row justify-content-center">
@@ -99,7 +82,6 @@
                 </div>
             </div>
 
-
             {{-- TOMBOL DAFTAR --}}
             <a href="{{ route('siswa.create') }}"
                 class="btn btn-outline-primary btn-block font-weight-bold py-2 shadow-sm mb-4">
@@ -110,7 +92,6 @@
     </div>
 
 @endsection
-
 
 @push('scripts')
 

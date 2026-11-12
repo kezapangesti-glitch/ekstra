@@ -47,7 +47,7 @@ Route::post('/siswa/logout', [SiswaAuthController::class, 'logout'])
     ->name('siswa.logout');
 
 // FORM PENDAFTARAN SISWA
-Route::middleware(['auth', 'siswa'])->group(function () {
+Route::middleware(['siswa'])->group(function () {
     Route::get('/siswa/create', [SiswaController::class, 'create'])
         ->name('siswa.create');
 

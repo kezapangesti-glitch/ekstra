@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 
@@ -19,7 +20,41 @@
     <div id="content-wrapper" class="d-flex flex-column min-vh-100">
         <div id="content">
 
-            <div class="container-fluid pt-4">
+            {{-- NAVBAR --}}
+            <nav class="navbar navbar-expand navbar-light bg-white shadow mb-4 px-4">
+
+                <a class="navbar-brand font-weight-bold text-primary" href="{{ route('publik.ekstra.index') }}">
+                    EkstraKu
+                </a>
+
+                <div class="ml-auto">
+
+                    @if (Auth::check() && Auth::user()->role == 'siswa')
+
+                        <form action="{{ route('siswa.logout') }}" method="POST">
+                            @csrf
+
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fas fa-sign-out-alt mr-1"></i>
+                                Logout
+                            </button>
+                        </form>
+
+                    @else
+
+                        <a href="{{ route('login.siswa') }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-sign-in-alt mr-1"></i>
+                            Login Siswa
+                        </a>
+
+                    @endif
+
+                </div>
+
+            </nav>
+
+            {{-- KONTEN --}}
+            <div class="container-fluid pt-2">
                 @yield('content')
             </div>
 

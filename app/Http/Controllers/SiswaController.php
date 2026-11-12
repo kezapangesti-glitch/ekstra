@@ -74,7 +74,7 @@ class SiswaController extends Controller
         ]);
 
         return redirect()
-            ->route('siswa.index')
+            ->route('publik.ekstra.index')
             ->with('success', 'Pendaftaran berhasil! Terima kasih telah mendaftar ekstrakurikuler.');
     }
 
